@@ -1,23 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ScreenMap } from 'antd/es/_util/responsiveObserver';
-import Tabs from 'rc-tabs';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { Tab } from 'rc-tabs/es/interface';
 import { CSSProperties } from 'react';
+import { TabsProps as RcTabsProps } from 'rc-tabs';
+import { Tabs } from 'antd';
+
 
 export interface CustomTab extends Tab {
   disabled?: boolean;
 }
 
+type RcTabsExposedProps = Pick<
+  RcTabsProps,
+  | 'className'
+  | 'activeKey'
+  | 'defaultActiveKey'
+  | 'destroyInactiveTabPane'
+  | 'onChange'
+  | 'onTabClick'
+  | 'onTabScroll'
+>;
+
 export interface CustomTabsProps {
   items: CustomTab[];
   style?: CSSProperties;
   activeKey?: string
-
-  // If set to true, this will set the scroll context to the content div AND add scrollable css styles?
-  setScrollContext?: boolean;
 }
+
+export type ConnectTabsProps = RcTabsExposedProps & CustomTabsProps;
+
 
 const Container = styled.div<{
   $breakpoint: ScreenMap;
@@ -41,14 +54,12 @@ const Container = styled.div<{
       @media (min-width: 480px) {
         max-height: 100%; // only if desktop, move scroll down
       }
-      background-color: ${(props) => props.theme.ant.colorBgContainer};
 
       display: flex;
       flex-direction: column;
     }
 
     .connect-tabs-nav {
-      background-color: ${(props) => props.theme.ant.colorBgContainer};
       margin-bottom: 0; // disable default margin 16 px bottom tabs.. tabs pane content need to handle it
 
       position: sticky;
@@ -63,7 +74,7 @@ const Container = styled.div<{
     }
 
     .connect-tabs-tabpane {
-      background-color: ${(props) => props.theme.ant.colorBgLayout};
+      background-color: #fefefe;
     }
 
     .connect-tabs-tabpane-active {
@@ -83,13 +94,13 @@ const Container = styled.div<{
 /***
  * PageTabs is a custom Tabs component with some additional styling (page padding, scroll etc.)
  * ***/
-const PageTabs: React.FC<CustomTabsProps> = (props) => {
+const PageTabs: React.FC<ConnectTabsProps> = (props) => {
   const { items, activeKey, ...rest } = props;
   const breakpoint = useBreakpoint();
 
   return (
     <Container $breakpoint={breakpoint} $isMobile={false} $isRoot={false}>
-      <Tabs activeKey={activeKey} items={items} setScrollContext={true} {...rest} />
+      <Tabs activeKey={activeKey} items={items} {...rest} />
     </Container>
   );
 };

@@ -1,5 +1,7 @@
-import { createFileRoute, Outlet, useChildMatches, useNavigate, useParams } from '@tanstack/react-router';
-import { Tabs } from 'antd';
+import { createFileRoute, useChildMatches, useNavigate, useParams } from '@tanstack/react-router';
+import PageTabs from '../../../../components/page/Page/PageTabs.tsx';
+import { ReactNode } from 'react';
+import { EventsList } from '../../../../components/EventsList.tsx';
 
 export const Route = createFileRoute('/_app/machine/$machineId/_operational')({
   component: OperationalMachinePage,
@@ -9,9 +11,9 @@ export const Route = createFileRoute('/_app/machine/$machineId/_operational')({
 // maybe extract all routes under _operational?
 type OperationalMachinePageTab = 'tickets' | 'events';
 
-const tabItems: { key: OperationalMachinePageTab, label: string }[] = [
-  {key: 'tickets', label: 'Tickets'},
-  {key: 'events', label: 'Events'}
+const tabItems: { key: OperationalMachinePageTab, label: string, content: ReactNode }[] = [
+  {key: 'tickets', label: 'Tickets', content: <div>tickets content in tab</div>},
+  {key: 'events', label: 'Events', content: <div>events content in tab <br/><EventsList />/</div>}
 ];
 
 function OperationalMachinePage() {
@@ -31,7 +33,7 @@ function OperationalMachinePage() {
 
   return <div>
    <h1>OperationalMachinePageRoute</h1>
-   <Tabs
+   <PageTabs
      activeKey={activeKey}
      onChange={(key) => {
        // const newPath = `/machine/123/_operational/${key}` // Update to match your route structure
@@ -59,9 +61,10 @@ function OperationalMachinePage() {
      items={tabItems.map(tab => ({
        key: tab.key,
        label: tab.label,
+       children: tab.content // TODO: Wd COULD just use this!!
      }))}
-   >
-    <Outlet />
-   </Tabs>
+   />
+    <div>outlet AFTER tabs:</div>
+    {/*<Outlet />*/}
  </div>
 }
