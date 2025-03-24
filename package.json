@@ -6,15 +6,21 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "routes": "tsr generate",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.114.27",
+    "antd": "^5.24.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@tanstack/react-router-devtools": "^1.114.27",
+    "@tanstack/router-cli": "^1.114.27",
+    "@tanstack/router-plugin": "^1.114.27",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
