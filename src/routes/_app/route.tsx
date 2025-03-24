@@ -14,6 +14,7 @@ function MainLayout() {
       <Link to={'/machine/$machineId'} params={{machineId: '123'}}>machine-123</Link>
       <Link to={'/machine/$machineId/events'} params={{machineId: '123'}}>machine-123-events</Link>
       <Link to={'/machine/$machineId/pricing'} params={{machineId: '123'}}>machine-123-pricing</Link>
+      <Link to={'/machine/$machineId/tickets'} params={{machineId: '123'}}>machine-123-tickets</Link>
       <Link to={'/tickets/new'} search={{
         machineId: 123
       }}>machine-123-tickets-new</Link>

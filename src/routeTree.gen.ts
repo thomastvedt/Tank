@@ -18,11 +18,11 @@ import { Route as AppRootOperationalIndexImport } from './routes/_app/_root/_ope
 import { Route as AppstandaloneTicketsNewImport } from './routes/_app/(standalone)/tickets/new'
 import { Route as AppMachineMachineIdOperationalRouteImport } from './routes/_app/machine.$machineId/_operational/route'
 import { Route as AppMachineMachineIdLogisticsRouteImport } from './routes/_app/machine.$machineId/_logistics/route'
+import { Route as AppMachineMachineIdCommercialRouteImport } from './routes/_app/machine.$machineId/_commercial/route'
 import { Route as AppMachineMachineIdOperationalIndexImport } from './routes/_app/machine.$machineId/_operational/index'
 import { Route as AppMachineMachineIdOperationalTicketsIndexImport } from './routes/_app/machine.$machineId/_operational/tickets/index'
 import { Route as AppMachineMachineIdOperationalEventsIndexImport } from './routes/_app/machine.$machineId/_operational/events/index'
-import { Route as AppMachineMachineIdLogisticsPricingIndexImport } from './routes/_app/machine.$machineId/_logistics/pricing/index'
-import { Route as AppMachineMachineIdOperationalTicketsNewImport } from './routes/_app/machine.$machineId/_operational/tickets/new'
+import { Route as AppMachineMachineIdCommercialPricingIndexImport } from './routes/_app/machine.$machineId/_commercial/pricing/index'
 
 // Create/Update Routes
 
@@ -67,6 +67,12 @@ const AppMachineMachineIdLogisticsRouteRoute =
     getParentRoute: () => AppMachineMachineIdRouteRoute,
   } as any)
 
+const AppMachineMachineIdCommercialRouteRoute =
+  AppMachineMachineIdCommercialRouteImport.update({
+    id: '/_commercial',
+    getParentRoute: () => AppMachineMachineIdRouteRoute,
+  } as any)
+
 const AppMachineMachineIdOperationalIndexRoute =
   AppMachineMachineIdOperationalIndexImport.update({
     id: '/',
@@ -88,18 +94,11 @@ const AppMachineMachineIdOperationalEventsIndexRoute =
     getParentRoute: () => AppMachineMachineIdOperationalRouteRoute,
   } as any)
 
-const AppMachineMachineIdLogisticsPricingIndexRoute =
-  AppMachineMachineIdLogisticsPricingIndexImport.update({
+const AppMachineMachineIdCommercialPricingIndexRoute =
+  AppMachineMachineIdCommercialPricingIndexImport.update({
     id: '/pricing/',
     path: '/pricing/',
-    getParentRoute: () => AppMachineMachineIdLogisticsRouteRoute,
-  } as any)
-
-const AppMachineMachineIdOperationalTicketsNewRoute =
-  AppMachineMachineIdOperationalTicketsNewImport.update({
-    id: '/tickets/new',
-    path: '/tickets/new',
-    getParentRoute: () => AppMachineMachineIdOperationalRouteRoute,
+    getParentRoute: () => AppMachineMachineIdCommercialRouteRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -126,6 +125,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/machine/$machineId'
       preLoaderRoute: typeof AppMachineMachineIdRouteImport
       parentRoute: typeof AppRouteImport
+    }
+    '/_app/machine/$machineId/_commercial': {
+      id: '/_app/machine/$machineId/_commercial'
+      path: ''
+      fullPath: '/machine/$machineId'
+      preLoaderRoute: typeof AppMachineMachineIdCommercialRouteImport
+      parentRoute: typeof AppMachineMachineIdRouteImport
     }
     '/_app/machine/$machineId/_logistics': {
       id: '/_app/machine/$machineId/_logistics'
@@ -162,19 +168,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppMachineMachineIdOperationalIndexImport
       parentRoute: typeof AppMachineMachineIdOperationalRouteImport
     }
-    '/_app/machine/$machineId/_operational/tickets/new': {
-      id: '/_app/machine/$machineId/_operational/tickets/new'
-      path: '/tickets/new'
-      fullPath: '/machine/$machineId/tickets/new'
-      preLoaderRoute: typeof AppMachineMachineIdOperationalTicketsNewImport
-      parentRoute: typeof AppMachineMachineIdOperationalRouteImport
-    }
-    '/_app/machine/$machineId/_logistics/pricing/': {
-      id: '/_app/machine/$machineId/_logistics/pricing/'
+    '/_app/machine/$machineId/_commercial/pricing/': {
+      id: '/_app/machine/$machineId/_commercial/pricing/'
       path: '/pricing'
       fullPath: '/machine/$machineId/pricing'
-      preLoaderRoute: typeof AppMachineMachineIdLogisticsPricingIndexImport
-      parentRoute: typeof AppMachineMachineIdLogisticsRouteImport
+      preLoaderRoute: typeof AppMachineMachineIdCommercialPricingIndexImport
+      parentRoute: typeof AppMachineMachineIdCommercialRouteImport
     }
     '/_app/machine/$machineId/_operational/events/': {
       id: '/_app/machine/$machineId/_operational/events/'
@@ -195,24 +194,23 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-interface AppMachineMachineIdLogisticsRouteRouteChildren {
-  AppMachineMachineIdLogisticsPricingIndexRoute: typeof AppMachineMachineIdLogisticsPricingIndexRoute
+interface AppMachineMachineIdCommercialRouteRouteChildren {
+  AppMachineMachineIdCommercialPricingIndexRoute: typeof AppMachineMachineIdCommercialPricingIndexRoute
 }
 
-const AppMachineMachineIdLogisticsRouteRouteChildren: AppMachineMachineIdLogisticsRouteRouteChildren =
+const AppMachineMachineIdCommercialRouteRouteChildren: AppMachineMachineIdCommercialRouteRouteChildren =
   {
-    AppMachineMachineIdLogisticsPricingIndexRoute:
-      AppMachineMachineIdLogisticsPricingIndexRoute,
+    AppMachineMachineIdCommercialPricingIndexRoute:
+      AppMachineMachineIdCommercialPricingIndexRoute,
   }
 
-const AppMachineMachineIdLogisticsRouteRouteWithChildren =
-  AppMachineMachineIdLogisticsRouteRoute._addFileChildren(
-    AppMachineMachineIdLogisticsRouteRouteChildren,
+const AppMachineMachineIdCommercialRouteRouteWithChildren =
+  AppMachineMachineIdCommercialRouteRoute._addFileChildren(
+    AppMachineMachineIdCommercialRouteRouteChildren,
   )
 
 interface AppMachineMachineIdOperationalRouteRouteChildren {
   AppMachineMachineIdOperationalIndexRoute: typeof AppMachineMachineIdOperationalIndexRoute
-  AppMachineMachineIdOperationalTicketsNewRoute: typeof AppMachineMachineIdOperationalTicketsNewRoute
   AppMachineMachineIdOperationalEventsIndexRoute: typeof AppMachineMachineIdOperationalEventsIndexRoute
   AppMachineMachineIdOperationalTicketsIndexRoute: typeof AppMachineMachineIdOperationalTicketsIndexRoute
 }
@@ -221,8 +219,6 @@ const AppMachineMachineIdOperationalRouteRouteChildren: AppMachineMachineIdOpera
   {
     AppMachineMachineIdOperationalIndexRoute:
       AppMachineMachineIdOperationalIndexRoute,
-    AppMachineMachineIdOperationalTicketsNewRoute:
-      AppMachineMachineIdOperationalTicketsNewRoute,
     AppMachineMachineIdOperationalEventsIndexRoute:
       AppMachineMachineIdOperationalEventsIndexRoute,
     AppMachineMachineIdOperationalTicketsIndexRoute:
@@ -235,14 +231,17 @@ const AppMachineMachineIdOperationalRouteRouteWithChildren =
   )
 
 interface AppMachineMachineIdRouteRouteChildren {
-  AppMachineMachineIdLogisticsRouteRoute: typeof AppMachineMachineIdLogisticsRouteRouteWithChildren
+  AppMachineMachineIdCommercialRouteRoute: typeof AppMachineMachineIdCommercialRouteRouteWithChildren
+  AppMachineMachineIdLogisticsRouteRoute: typeof AppMachineMachineIdLogisticsRouteRoute
   AppMachineMachineIdOperationalRouteRoute: typeof AppMachineMachineIdOperationalRouteRouteWithChildren
 }
 
 const AppMachineMachineIdRouteRouteChildren: AppMachineMachineIdRouteRouteChildren =
   {
+    AppMachineMachineIdCommercialRouteRoute:
+      AppMachineMachineIdCommercialRouteRouteWithChildren,
     AppMachineMachineIdLogisticsRouteRoute:
-      AppMachineMachineIdLogisticsRouteRouteWithChildren,
+      AppMachineMachineIdLogisticsRouteRoute,
     AppMachineMachineIdOperationalRouteRoute:
       AppMachineMachineIdOperationalRouteRouteWithChildren,
   }
@@ -275,8 +274,7 @@ export interface FileRoutesByFullPath {
   '/tickets/new': typeof AppstandaloneTicketsNewRoute
   '/': typeof AppRootOperationalIndexRoute
   '/machine/$machineId/': typeof AppMachineMachineIdOperationalIndexRoute
-  '/machine/$machineId/tickets/new': typeof AppMachineMachineIdOperationalTicketsNewRoute
-  '/machine/$machineId/pricing': typeof AppMachineMachineIdLogisticsPricingIndexRoute
+  '/machine/$machineId/pricing': typeof AppMachineMachineIdCommercialPricingIndexRoute
   '/machine/$machineId/events': typeof AppMachineMachineIdOperationalEventsIndexRoute
   '/machine/$machineId/tickets': typeof AppMachineMachineIdOperationalTicketsIndexRoute
 }
@@ -286,8 +284,7 @@ export interface FileRoutesByTo {
   '/machine/$machineId': typeof AppMachineMachineIdOperationalIndexRoute
   '/tickets/new': typeof AppstandaloneTicketsNewRoute
   '/': typeof AppRootOperationalIndexRoute
-  '/machine/$machineId/tickets/new': typeof AppMachineMachineIdOperationalTicketsNewRoute
-  '/machine/$machineId/pricing': typeof AppMachineMachineIdLogisticsPricingIndexRoute
+  '/machine/$machineId/pricing': typeof AppMachineMachineIdCommercialPricingIndexRoute
   '/machine/$machineId/events': typeof AppMachineMachineIdOperationalEventsIndexRoute
   '/machine/$machineId/tickets': typeof AppMachineMachineIdOperationalTicketsIndexRoute
 }
@@ -297,13 +294,13 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteRouteWithChildren
   '/_login/login': typeof LoginLoginRoute
   '/_app/machine/$machineId': typeof AppMachineMachineIdRouteRouteWithChildren
-  '/_app/machine/$machineId/_logistics': typeof AppMachineMachineIdLogisticsRouteRouteWithChildren
+  '/_app/machine/$machineId/_commercial': typeof AppMachineMachineIdCommercialRouteRouteWithChildren
+  '/_app/machine/$machineId/_logistics': typeof AppMachineMachineIdLogisticsRouteRoute
   '/_app/machine/$machineId/_operational': typeof AppMachineMachineIdOperationalRouteRouteWithChildren
   '/_app/(standalone)/tickets/new': typeof AppstandaloneTicketsNewRoute
   '/_app/_root/_operational/': typeof AppRootOperationalIndexRoute
   '/_app/machine/$machineId/_operational/': typeof AppMachineMachineIdOperationalIndexRoute
-  '/_app/machine/$machineId/_operational/tickets/new': typeof AppMachineMachineIdOperationalTicketsNewRoute
-  '/_app/machine/$machineId/_logistics/pricing/': typeof AppMachineMachineIdLogisticsPricingIndexRoute
+  '/_app/machine/$machineId/_commercial/pricing/': typeof AppMachineMachineIdCommercialPricingIndexRoute
   '/_app/machine/$machineId/_operational/events/': typeof AppMachineMachineIdOperationalEventsIndexRoute
   '/_app/machine/$machineId/_operational/tickets/': typeof AppMachineMachineIdOperationalTicketsIndexRoute
 }
@@ -317,7 +314,6 @@ export interface FileRouteTypes {
     | '/tickets/new'
     | '/'
     | '/machine/$machineId/'
-    | '/machine/$machineId/tickets/new'
     | '/machine/$machineId/pricing'
     | '/machine/$machineId/events'
     | '/machine/$machineId/tickets'
@@ -327,7 +323,6 @@ export interface FileRouteTypes {
     | '/machine/$machineId'
     | '/tickets/new'
     | '/'
-    | '/machine/$machineId/tickets/new'
     | '/machine/$machineId/pricing'
     | '/machine/$machineId/events'
     | '/machine/$machineId/tickets'
@@ -336,13 +331,13 @@ export interface FileRouteTypes {
     | '/_app'
     | '/_login/login'
     | '/_app/machine/$machineId'
+    | '/_app/machine/$machineId/_commercial'
     | '/_app/machine/$machineId/_logistics'
     | '/_app/machine/$machineId/_operational'
     | '/_app/(standalone)/tickets/new'
     | '/_app/_root/_operational/'
     | '/_app/machine/$machineId/_operational/'
-    | '/_app/machine/$machineId/_operational/tickets/new'
-    | '/_app/machine/$machineId/_logistics/pricing/'
+    | '/_app/machine/$machineId/_commercial/pricing/'
     | '/_app/machine/$machineId/_operational/events/'
     | '/_app/machine/$machineId/_operational/tickets/'
   fileRoutesById: FileRoutesById
@@ -387,23 +382,27 @@ export const routeTree = rootRoute
       "filePath": "_app/machine.$machineId/route.tsx",
       "parent": "/_app",
       "children": [
+        "/_app/machine/$machineId/_commercial",
         "/_app/machine/$machineId/_logistics",
         "/_app/machine/$machineId/_operational"
       ]
     },
-    "/_app/machine/$machineId/_logistics": {
-      "filePath": "_app/machine.$machineId/_logistics/route.tsx",
+    "/_app/machine/$machineId/_commercial": {
+      "filePath": "_app/machine.$machineId/_commercial/route.tsx",
       "parent": "/_app/machine/$machineId",
       "children": [
-        "/_app/machine/$machineId/_logistics/pricing/"
+        "/_app/machine/$machineId/_commercial/pricing/"
       ]
+    },
+    "/_app/machine/$machineId/_logistics": {
+      "filePath": "_app/machine.$machineId/_logistics/route.tsx",
+      "parent": "/_app/machine/$machineId"
     },
     "/_app/machine/$machineId/_operational": {
       "filePath": "_app/machine.$machineId/_operational/route.tsx",
       "parent": "/_app/machine/$machineId",
       "children": [
         "/_app/machine/$machineId/_operational/",
-        "/_app/machine/$machineId/_operational/tickets/new",
         "/_app/machine/$machineId/_operational/events/",
         "/_app/machine/$machineId/_operational/tickets/"
       ]
@@ -420,13 +419,9 @@ export const routeTree = rootRoute
       "filePath": "_app/machine.$machineId/_operational/index.tsx",
       "parent": "/_app/machine/$machineId/_operational"
     },
-    "/_app/machine/$machineId/_operational/tickets/new": {
-      "filePath": "_app/machine.$machineId/_operational/tickets/new.tsx",
-      "parent": "/_app/machine/$machineId/_operational"
-    },
-    "/_app/machine/$machineId/_logistics/pricing/": {
-      "filePath": "_app/machine.$machineId/_logistics/pricing/index.tsx",
-      "parent": "/_app/machine/$machineId/_logistics"
+    "/_app/machine/$machineId/_commercial/pricing/": {
+      "filePath": "_app/machine.$machineId/_commercial/pricing/index.tsx",
+      "parent": "/_app/machine/$machineId/_commercial"
     },
     "/_app/machine/$machineId/_operational/events/": {
       "filePath": "_app/machine.$machineId/_operational/events/index.tsx",
