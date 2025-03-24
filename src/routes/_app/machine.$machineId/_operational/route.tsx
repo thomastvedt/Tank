@@ -6,7 +6,7 @@ export const Route = createFileRoute('/_app/machine/$machineId/_operational')({
 
 function RouteComponent() {
  return <div>
-   <h1>OperationalMachinePage</h1>
+   <h1>OperationalMachinePageRoute</h1>
    <Outlet />
  </div>
 }

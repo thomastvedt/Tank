@@ -11,10 +11,12 @@ function MainLayout() {
 
       <Link to='/'>Home</Link>
       <Link to={'/login'}>Login</Link>
-      <Link to={'/machine/$machineId/tickets/new'} params={{machineId: '123'}}>New ticket under machine 123</Link>
-      <Link to={'/machine/$machineId'} params={{machineId: '123'}}>
-        Machine 123
-      </Link>
+      <Link to={'/machine/$machineId'} params={{machineId: '123'}}>machine-123</Link>
+      <Link to={'/machine/$machineId/events'} params={{machineId: '123'}}>machine-123-events</Link>
+      <Link to={'/machine/$machineId/pricing'} params={{machineId: '123'}}>machine-123-pricing</Link>
+      <Link to={'/tickets/new'} search={{
+        machineId: 123
+      }}>machine-123-tickets-new</Link>
     </div>
     <div style={{flex: '0 0 700px'}}>
       <Outlet />
