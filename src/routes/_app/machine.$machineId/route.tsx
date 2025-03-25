@@ -4,7 +4,7 @@ import { createFileRoute, Outlet } from '@tanstack/react-router';
 // NOTE: This will be empty, only resolve + set context
 
 export const Route = createFileRoute('/_app/machine/$machineId')({
-  component: RouteComponent,
+  component: MachinePage,
   beforeLoad: ({params} ) => {
     return {
       retailerId: '45_' + params.machineId
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/_app/machine/$machineId')({
   }
 })
 
-function RouteComponent() {
+function MachinePage() {
   return <div><h1>
     MAchinePage route.
   </h1>

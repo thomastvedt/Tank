@@ -5,9 +5,9 @@ export function EventsList() {
 
   useEffect(() => {
     const loadEvents = async () => {
-      setEvents(null); // Simulate loading state
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Fake delay
-      setEvents(Array.from({length: 20}, (_, i) => `Event ${i + 1}`)); // Generate 20 events
+      setEvents(null);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setEvents(Array.from({length: 20}, (_, i) => `Event ${i + 1}`));
     };
 
     loadEvents();

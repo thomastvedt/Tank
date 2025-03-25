@@ -1,16 +1,18 @@
 import './App.css'
 
-// Import the generated route tree
 import { routeTree } from './routeTree.gen';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 
-// Create a new router instance
-// NOTE: Initial context is added here, can also be overridden in App render if we need hooks
-const router = createRouter({ routeTree: routeTree, context: { } });
+const router = createRouter({
+  routeTree: routeTree,
+  context: {
+  },
+  defaultStructuralSharing: true
+});
 
 console.log('routeTree in app.tsx', routeTree);
 
-// HERE we can build a matrix from the routeTree!
+// HERE we can build a 2d matrix from the routeTree!
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -18,7 +20,6 @@ declare module '@tanstack/react-router' {
     router: typeof router;
   }
 }
-
 
 function App() {
   return (

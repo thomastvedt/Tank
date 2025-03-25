@@ -16,15 +16,27 @@ const tabItems: { key: OperationalMachinePageTab, label: string, content: ReactN
   {key: 'events', label: 'Events', content: <div>events content in tab <br/><EventsList />/</div>}
 ];
 
-function OperationalMachinePage() {
-  const childMatches = useChildMatches()
-  let activeKey: string | undefined = undefined;
-  if (childMatches && childMatches.length > 0) {
-    const routeId = childMatches[0].routeId;
-    activeKey = routeId.split('/').filter(Boolean).pop(); // TODO: safer..
-  }
+function useNextChildPathParamString(): string | undefined {
+  return useChildMatches({
+    structuralSharing: true,
+    select: matches => {
+      console.log('EVAL child matches', matches);
+      for(let i = 0; i < matches.length; i++) {
+        const {routeId} = matches[i];
+        // routeId sample data: '/_app/machine/$machineId/_operational/events/'
+        const parts = routeId.split('/').filter(Boolean); // Remove empty segments
+        if (parts.length === 0) return undefined;
+        const lastSegment = parts[parts.length - 1]; // Get the last part
+        return lastSegment ?? undefined; // Safely return the last segment or undefined
+      }
+      return undefined;
+    }
+  })
+}
 
-  console.log('activeKey', activeKey);
+function OperationalMachinePage() {
+  const activeKey2 = useNextChildPathParamString();
+  console.log('activeKey2', activeKey2);
 
   const navigate = useNavigate();
   const {machineId} = useParams({
@@ -34,7 +46,7 @@ function OperationalMachinePage() {
   return <div>
    <h1>OperationalMachinePageRoute</h1>
    <PageTabs
-     activeKey={activeKey}
+     activeKey={activeKey2}
      onChange={(key) => {
        // const newPath = `/machine/123/_operational/${key}` // Update to match your route structure
        // window.history.pushState(null, '', newPath)

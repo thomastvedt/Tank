@@ -26,7 +26,7 @@ type RcTabsExposedProps = Pick<
 export interface CustomTabsProps {
   items: CustomTab[];
   style?: CSSProperties;
-  activeKey?: string
+  activeKey?: string;
 }
 
 export type ConnectTabsProps = RcTabsExposedProps & CustomTabsProps;
