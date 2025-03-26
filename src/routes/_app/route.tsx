@@ -2,7 +2,7 @@ import {
   createFileRoute,
   Link,
   Outlet,
-  useMatches,
+  useMatches, useRouteContext,
   useRouterState
 } from '@tanstack/react-router';
 import { useMatrixCategory } from '../../matrix/useMatrixCategory.ts';
@@ -27,10 +27,18 @@ function MainLayout() {
     select: (matches) => matches[matches.length - 1].context
   });
 
+  const contextButNotAccumulated = Route.useRouteContext();
+
+  const anotherContextTest = useRouteContext({
+    from: '/_app'
+  });
+
   const info = {
     category,
     level,
-    accumulatedContext
+    accumulatedContext,
+    contextButNotAccumulated,
+    anotherContextTest
   };
 
   useEffect(() => {
